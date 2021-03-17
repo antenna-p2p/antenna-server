@@ -1,7 +1,8 @@
 "use strict";
 
 const webServer = require("tn-webserver"),
-	socketIo = require("socket.io");
+	socketIo = require("socket.io"),
+	express = require('express');
 
 function createBinder(instance) {
 	return (function (a, ...p) {
@@ -9,12 +10,50 @@ function createBinder(instance) {
 	}).bind(instance);
 }
 
+class Server {
+	constructor(port) {
+		this.name = process.env.ANTENNA_NAME||"Untitled Antenna Server"
+		this.port = port;
 
-let server = webServer(_ => { }, {}, 3001);
-let io = socketIo(server);
-io.on("connect", socket => {
-	new Client(socket);
-});
+		this.api = new API(this);
+		this.server = this.api.server;
+		this.io = socketIo(server);
+
+		this.rooms = {};
+		this.users = {};
+
+		this.io.on('connect',this.joinServer.bind(this));
+		console.log("Created Server " + this.name);
+
+	}
+
+	joinServer(socket) {
+		new Client(socket);
+	}
+}
+
+class API {
+	constructor(server) {
+		this.app = express();
+		this.server = webServer(this.app, {}, server.port);
+		this.app.set('port',server.port);
+		
+		this.get("/",this.getServerInfo.bind(this));
+		
+		console.log("Setup API");
+	}
+	
+	get(path,action) {
+		this.app.get(path,(req,res)=>res.json(action(req.params)));
+	}
+	
+	getServerInfo(p) {
+		return {
+			name:server.name,
+			port: server.port
+		};
+	}
+}
 
 class Client {
 	constructor(socket) {
@@ -89,4 +128,9 @@ class Client {
 	candidate({ id, candidate }) {
 		this.peerEmit(id, "candidate", { id: this.id, candidate });
 	}
+}
+
+var server;
+module.exports = function (port) {
+	server = new Server(port);
 }
