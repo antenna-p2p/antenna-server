@@ -59,18 +59,18 @@ describe('antenna server testing', () => {
     test("peer connecting", done => {
         clientB.emit("joinRoom", room);
         clientB.on("peerConnect", peer => {
-            console.log(peer);
             expect(peer.id).toBeDefined();
+            done();
         });
         clientA.emit("joinRoom", room);
     });
-    test("status testingf", done => {
+    test("status testing", done => {
         clientB.emit("joinRoom", room);
         clientA.emit("joinRoom", room);
 
         clientB.on("status", peerStatus => {
-            console.log(peerStatus);
             expect(peerStatus.status).toBeDefined();
+            done();
         });
 
         clientA.emit("status", status);
