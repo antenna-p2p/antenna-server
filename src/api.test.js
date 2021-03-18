@@ -5,7 +5,7 @@ const genNum = _ => Math.round(Math.random() * 65535),
     name = "test_" + genNum(),
     address = "localhost",
     port = genNum();
-serverInfo = { name, port; };
+serverInfo = { name, port };
 
 let server, api;
 
