@@ -6,11 +6,10 @@ let genNum = _ => Math.round(Math.random() * 65535);
 let name = "test_" + genNum();
 let address = "localhost";
 let port = genNum();
-let room = "room_" + genNum();
 
 console.log("Generated test params\n" + JSON.stringify({ name, address, port, room }, null, 2));
 
-let server, clientA, clientB;
+let server, clientA, clientB, room;
 
 function connectClient() {
     return new Promise((resolve, reject) => {
@@ -35,6 +34,8 @@ function disconnectClient(socket) {
 beforeAll(done => {
     server = new Server(name, port);
     server.start().then(done);
+    room = "room_" + genNum();
+    status = "status_" + genNum();
 });
 
 afterAll(done => {
@@ -58,8 +59,21 @@ describe('antenna server testing', () => {
     test("peer connecting", done => {
         clientB.emit("joinRoom", room);
         clientB.on("peerConnect", peer => {
-            done();
+            console.log(peer);
+            expect(peer.id).toBeDefined();
         });
         clientA.emit("joinRoom", room);
+    });
+    test("status testingf", done => {
+        clientB.emit("joinRoom", room);
+        clientA.emit("joinRoom", room);
+
+        clientB.on("status", peerStatus => {
+            console.log(peerStatus);
+            expect(peerStatus.status).toBeDefined();
+        });
+
+        clientA.emit("status", status);
+
     });
 });
