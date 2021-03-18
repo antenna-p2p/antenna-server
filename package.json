@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "node index.js",
 		"test": "jest",
-		"coverage": "jest --coverage && coveralls < coverage/lcov.info"
+		"test-coveralls": "jest --coverage",
+		"post-test-coveralls":"coveralls < coverage/lcov.info"
 	},
 	"repository": {
 		"type": "git",
