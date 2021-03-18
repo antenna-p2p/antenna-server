@@ -26,6 +26,7 @@
 		"tn-webserver": "^1.0.3"
 	},
 	"devDependencies": {
+		"bent": "^7.3.12",
 		"coveralls": "^3.1.0",
 		"jest": "^26.6.3",
 		"node-fetch": "^2.6.1",
