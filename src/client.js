@@ -55,6 +55,7 @@ class Client {
 		if (this.room)
 			this.roomEmit("peerDisconnect", this.id);
 		this.join(room);
+		this.emit("joinRoom", room);
 		this.roomEmit("peerConnect", { id: this.id });
 	}
 

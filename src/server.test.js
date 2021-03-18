@@ -52,6 +52,10 @@ afterEach(done => {
 
 describe('antenna server testing', () => {
     test("peer connecting", done => {
+        clientA.on("joinRoom", room => {
+            expect(room).toBeDefined();
+        });
+        clientA.emit("joinRoom", "room_" + genNum());
         clientB.emit("joinRoom", room);
         clientB.on("peerConnect", peer => {
             expect(peer.id).toBeDefined();
