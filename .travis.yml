@@ -1,7 +1,8 @@
-langauge: node_js
+language: node_js
 node_js:
-  - 'node'
-  - 'lts/*'
+- stable
+- '6'
+- '4'
 install: npm install
 script: npm run test-coveralls
 after_success: npm run post-test-coveralls
