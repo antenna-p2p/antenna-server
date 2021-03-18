@@ -22,7 +22,7 @@
 	"homepage": "https://github.com/antenna-p2p/antenna-server#readme",
 	"dependencies": {
 		"express": "^4.17.1",
-		"socket.io": "^2.3.0",
+		"socket.io": "^2.4.0",
 		"tn-webserver": "^1.0.3"
 	},
 	"devDependencies": {
