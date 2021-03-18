@@ -7,7 +7,7 @@ let name = "test_" + genNum();
 let address = "localhost";
 let port = genNum();
 
-console.log("Generated test params\n" + JSON.stringify({ name, address, port, room }, null, 2));
+console.log("Generated test params\n" + JSON.stringify({ name, address, port }, null, 2));
 
 let server, clientA, clientB, room;
 
