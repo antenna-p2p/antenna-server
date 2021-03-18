@@ -22,8 +22,7 @@ beforeAll(done => {
 });
 
 afterAll(done => {
-    server.close();
-    done();
+    server.close(done);
 });
 
 describe('antenna server api testing', () => {

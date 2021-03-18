@@ -1,11 +1,11 @@
-const {createBinder} = require("./util")
+const { createBinder } = require("./util");
 
 class Client {
 	constructor(socket) {
 		this.bind = createBinder(this);
 		this.socket = socket;
 
-		this.emit("connect");
+		//this.emit("connect");
 		this.bindSocket("disconnect");
 		this.bindSocket("login");
 		this.bindSocket("joinRoom");

@@ -1,14 +1,14 @@
 "use strict";
 
 const socketIo = require('socket.io'),
-http = require('http'),
-Client = require("./client"),
-API = require("./api")
+	http = require('http'),
+	Client = require("./client"),
+	API = require("./api");
 
 
 class Server {
-	constructor(name,port) {
-		this.name = name
+	constructor(name, port) {
+		this.name = name;
 		this.port = port;
 
 		this.api = new API(this);
@@ -18,18 +18,18 @@ class Server {
 		this.rooms = {};
 		this.users = {};
 
-		this.io.on('connect',this.joinServer.bind(this));
+		this.io.on('connect', this.joinServer.bind(this));
 		console.log("Created Server " + this.name);
 
 	}
 
 	start() {
-		return new Promise((resolve,reject)=>{
-			this.server.listen(this.port,function(){
+		return new Promise((resolve, reject) => {
+			this.server.listen(this.port, () => {
 				console.log(`Starting server on port: ${this.port}`);
 				resolve();
-			})
-		})
+			});
+		});
 	}
 
 	joinServer(socket) {
@@ -37,7 +37,9 @@ class Server {
 	}
 
 	close() {
-		this.server.close()
+		return new Promise((resolve, reject) => {
+			this.server.close(resolve);
+		});
 	}
 }
 
@@ -45,4 +47,4 @@ class Server {
 
 
 
-module.exports = Server
+module.exports = Server;

@@ -5,7 +5,7 @@
 	"main": "antenna-server.js",
 	"scripts": {
 		"start": "node index.js",
-		"test": "jest",
+		"test": "jest --detectOpenHandles",
 		"test-coveralls": "jest --coverage",
 		"post-test-coveralls": "coveralls < coverage/lcov.info"
 	},

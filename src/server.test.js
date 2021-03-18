@@ -1,11 +1,11 @@
 let Server = require("./server"),
     io = require("socket.io-client");
 
-let genNum = _ => Math.round(Math.random() * 65535);
+let genNum = _ => Math.round(Math.random() * 65535),
 
-let name = "test_" + genNum();
-let address = "localhost";
-let port = genNum();
+    name = "test_" + genNum();
+address = "localhost",
+    port = genNum();
 
 console.log("Generated test params\n" + JSON.stringify({ name, address, port }, null, 2));
 
@@ -13,12 +13,7 @@ let server, clientA, clientB, room;
 
 function connectClient() {
     return new Promise((resolve, reject) => {
-        let socket = io.connect(`http://${address}:${port}`, {
-            'reconnection delay': 0,
-            'reopen delay': 0,
-            'force new connection': true,
-            transports: ['websocket'],
-        });
+        let socket = io.connect(`http://${address}:${port}`);
         socket.on('connect', () => {
             resolve(socket);
         });
@@ -38,8 +33,8 @@ beforeAll(done => {
     status = "status_" + genNum();
 });
 
-afterAll(done => {
-    server.close();
+afterAll(async done => {
+    await server.close();
     done();
 });
 
