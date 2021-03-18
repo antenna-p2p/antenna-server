@@ -1,7 +1,8 @@
 "use strict";
+const {Server} = require("./antenna-server.js"),
+name = process.env.ANTENNA_NAME||"Untitled Antenna Server",
+port = process.env.PORT || 3001;
 
-var port = process.env.PORT || 3001;
+let server = new Server(name,port);
 
-
-let main = require('./server.js')
-main(port);
+server.start();

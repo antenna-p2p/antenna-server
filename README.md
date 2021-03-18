@@ -1,4 +1,8 @@
 # Antenna Server
+[![Build Status](https://travis-ci.com/antenna-p2p/antenna-server.svg?branch=master)](https://travis-ci.com/antenna-p2p/antenna-server)
+[![Coverage Status](https://coveralls.io/repos/github/antenna-p2p/antenna-server/badge.svg?branch=develop)](https://coveralls.io/github/antenna-p2p/antenna-server?branch=develop)
+
+
 Peer to peer communication library and programs
 
 ## git flow setup

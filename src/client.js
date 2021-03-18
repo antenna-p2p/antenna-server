@@ -1,59 +1,4 @@
-"use strict";
-
-const webServer = require("tn-webserver"),
-	socketIo = require("socket.io"),
-	express = require('express');
-
-function createBinder(instance) {
-	return (function (a, ...p) {
-		return this[a].bind(this, ...p);
-	}).bind(instance);
-}
-
-class Server {
-	constructor(port) {
-		this.name = process.env.ANTENNA_NAME||"Untitled Antenna Server"
-		this.port = port;
-
-		this.api = new API(this);
-		this.server = this.api.server;
-		this.io = socketIo(server);
-
-		this.rooms = {};
-		this.users = {};
-
-		this.io.on('connect',this.joinServer.bind(this));
-		console.log("Created Server " + this.name);
-
-	}
-
-	joinServer(socket) {
-		new Client(socket);
-	}
-}
-
-class API {
-	constructor(server) {
-		this.app = express();
-		this.server = webServer(this.app, {}, server.port);
-		this.app.set('port',server.port);
-		
-		this.get("/",this.getServerInfo.bind(this));
-		
-		console.log("Setup API");
-	}
-	
-	get(path,action) {
-		this.app.get(path,(req,res)=>res.json(action(req.params)));
-	}
-	
-	getServerInfo(p) {
-		return {
-			name:server.name,
-			port: server.port
-		};
-	}
-}
+const {createBinder} = require("./util")
 
 class Client {
 	constructor(socket) {
@@ -130,7 +75,4 @@ class Client {
 	}
 }
 
-var server;
-module.exports = function (port) {
-	server = new Server(port);
-}
+module.exports = Client;
