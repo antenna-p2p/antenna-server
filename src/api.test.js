@@ -28,7 +28,7 @@ afterAll(done => {
 
 describe('antenna server api testing', () => {
     test("server info", async done => {
-        let url = "http://" + address + ":" + port;
+        let url = `http://${address}:${port}`;
         let requestResonse = await getJson(url);
         console.log(requestResonse);
 
