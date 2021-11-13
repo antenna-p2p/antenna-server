@@ -15,7 +15,8 @@ class Server {
 		this.server = http.Server(this.api.app);
 		this.io = socketIo(this.server,{
 			cors: {
-			  origin: "https://antennatest.herokuapp.com/",
+			  //origin: "https://antennatest.herokuapp.com",
+			  origin: "https://antenna-p2p.github.io",
 			  methods: ["GET", "POST"]
 			}
 		  });
