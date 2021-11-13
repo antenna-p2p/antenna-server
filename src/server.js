@@ -13,7 +13,12 @@ class Server {
 
 		this.api = new API(this);
 		this.server = http.Server(this.api.app);
-		this.io = socketIo(this.server);
+		this.io = socketIo(this.server,{
+			cors: {
+			  origin: "https://antennatest.herokuapp.com/",
+			  methods: ["GET", "POST"]
+			}
+		  });
 
 		this.rooms = {};
 		this.users = {};
